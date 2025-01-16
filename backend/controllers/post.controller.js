@@ -226,15 +226,16 @@ export const getCommentOfPost = async (req, res) => {
 export const deletePost = async (req, res) => {
     try {
         const postId = req.params.id;
-        const authorId = req.body;
+        const authorId = req.id;
 
         const post = await Post.findById(postId);
         if (!post) return res.status(404).json({ message: 'Post not found', success: false })
         
         // check if the logged in user is the owner of post
 
-
+        
         if (post.author.toString() !== authorId) return res.status(403).json({ message: 'Unauthorized' });
+        
 
 
         //delete post

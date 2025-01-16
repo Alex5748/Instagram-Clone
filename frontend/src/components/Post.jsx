@@ -6,6 +6,8 @@ import { Button } from "./ui/button";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import CommentDialog from "./CommentDialog";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import axios from "axios";
 
 const Post = ({ post }) => {
   const [text, setText] = useState("");
@@ -18,6 +20,22 @@ const Post = ({ post }) => {
       setText(inputText);
     } else {
       setText("");
+    }
+  };
+
+  const deletePostHandler = async (e) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:8000/api/v1/post/delete/${post._id}`,
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -48,12 +66,15 @@ const Post = ({ post }) => {
                 Add to favourite
               </Button>
 
-              {user && user?._id === post?.author?._id && <Button variant="ghost" className="cursor-pointer w-fit  font-bold">Delete</Button>
-              
-              
-              }
-
-              
+              {user && user?._id === post?.author?._id && (
+                <Button
+                  onClick={deletePostHandler}
+                  variant="ghost"
+                  className="cursor-pointer w-fit  font-bold"
+                >
+                  Delete
+                </Button>
+              )}
             </DialogContent>
           </Dialog>
         </div>
