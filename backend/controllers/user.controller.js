@@ -80,7 +80,7 @@ export const login = async (req, res) => {
         const populatedPosts = await Promise.all(user.posts.map( async(postId) => {
             const post = await Post.findById(postId);
 
-            if (post.author.equals(user._id)) {
+            if (post&& post.author.equals(user._id)) {
                 return post;
             }
             return null;
@@ -129,7 +129,7 @@ export const getProfile = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        let user = await User.findById(userId).select("-password");
+        let user = await User.findById(userId).populate({ path: 'posts', createdAt: -1 }).populate('bookmarks');
         return res.status(200).json({
             user,
             succcess: true

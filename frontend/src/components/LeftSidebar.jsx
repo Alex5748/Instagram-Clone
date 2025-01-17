@@ -1,12 +1,4 @@
-import {
-  Heart,
-  Home,
-  LogOut,
-  MessageCircle,
-  PlusSquare,
-  Search,
-  TrendingUp,
-} from "lucide-react";
+import { Heart, Home, LogOut, MessageCircle, PlusSquare, Search, TrendingUp } from "lucide-react";
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { toast } from "sonner";
@@ -15,6 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser } from "@/redux/authSlice";
 import CreatePost from "./CreatePost";
+import { setPosts, setSelectedPost } from "@/redux/postSlice";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -31,13 +24,14 @@ const LeftSidebar = () => {
       console.log(res);
       if (res.data.success) {
         dispatch(setAuthUser(null));
-
+        dispatch(setSelectedPost(null));
+        dispatch(setPosts([]));
         navigate("/login");
-        toast.success(res.message);
+        toast.success(res?.message);
       }
     } catch (error) {
       console.log("error occured");
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -47,6 +41,10 @@ const LeftSidebar = () => {
     } else if (textType === "Create") {
       setOpen(true);
       createPostHandler();
+    } else if (textType === "Profile") {
+      navigate(`/profile/${user?._id}`);
+    } else if (textType === "Home") {
+      navigate("/");
     }
   };
 
@@ -76,11 +74,7 @@ const LeftSidebar = () => {
         <div>
           {sidebarItems.map((item, index) => {
             return (
-              <div
-                onClick={() => sidebarHandler(item.text)}
-                key={index}
-                className="flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3"
-              >
+              <div onClick={() => sidebarHandler(item.text)} key={index} className="flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3">
                 {item.icon}
                 <span>{item.text}</span>
               </div>
@@ -88,7 +82,7 @@ const LeftSidebar = () => {
           })}
         </div>
       </div>
-      <CreatePost open={open}  setOpen={ setOpen} />
+      <CreatePost open={open} setOpen={setOpen} />
     </div>
   );
 };

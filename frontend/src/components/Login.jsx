@@ -44,7 +44,7 @@ const Login = () => {
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));
         navigate("/");
-        toast.success(res.message);
+        toast.success(res?.message);
         setInput({
           email: "",
           password: "",
@@ -52,7 +52,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     } finally {
       setLoading(false);
     }

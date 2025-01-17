@@ -80,13 +80,13 @@ export const getUserPost = async (req, res) => {
         const authorId = req.id;
         const posts = await Post.find({ author: authorId }).sort({ created: -1 }).populate({
             path: 'author',
-            select: 'username, profilePicture'
+            select: 'username profilePicture'
         }).populate({
             path: 'Comment',
             sort: { createdAt: -1 },
             populate: {
                 path: 'author',
-                select: 'username, profilePicture'
+                select: 'username profilePicture'
             }
         });
 
@@ -178,10 +178,14 @@ export const addComment = async (req, res) => {
             text,
             author: commentGarneUserId,
             post: postId
-        }).populate({
+        })
+
+        await comment.populate({
             path: 'author',
-            select: 'username, profilePicture'
+            select: 'username profilePicture'
         });
+
+
         post.comments.push(comment._id);
         await post.save();
 
@@ -204,7 +208,7 @@ export const getCommentOfPost = async (req, res) => {
 
 
         const postId = req.params.id;
-        const comments = await Comment.find({ post: postId }).populate({ path: 'author', select: 'username, profilePicture' });
+        const comments = await Comment.find({ post: postId }).populate({ path: 'author', select: 'username profilePicture' });
 
         if (!comments) return res.status(404).json({ message: 'No comments found for this post', success: false })
         
