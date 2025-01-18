@@ -14,26 +14,21 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState("posts");
 
-  //const {userProfile, user} = useSelector((store) => store.auth);
-  //const user = useSelector(store => store.auth.user);
+ 
   const userProfile = useSelector((store) => store.auth);
-  //const user = useSelector((store) => store.auth);
-  console.log(userProfile);
-  //console.log(user)
-  //console.log(userProfile?.user?.profilePicture);
+ 
+
+ 
 
   const isLoggedInUserProfile = true; // user?._id === userProfile?.user?._id;
-  // console.log(user?._id);
-  // console.log(userProfile?.user?._id);
+
   const isfollowing = false;
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  // const displayedPost = activeTab === "posts" ? userProfile?.posts : userProfile?.bookmarks;
 
-  //const displayedPost = activeTab === "posts" ? userProfile?.user?.posts : userProfile?.user?.bookmarks;
   const displayedPost = activeTab === "posts" ? userProfile?.user?.posts || [] : userProfile?.user?.bookmarks || [];
 
   console.log(userProfile);
@@ -140,11 +135,7 @@ const Profile = () => {
             </div>
           ))}
 
-          {/* {displayedPost.map((post) => (
-            <div key={post?._id} className="relative group cursor-pointer">
-              <img src={post?.image} alt="post_image" className="rounded" />
-            </div>
-          ))} */}
+          
         </div>
       </div>
     </div>
