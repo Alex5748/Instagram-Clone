@@ -16,13 +16,13 @@ const Profile = () => {
 
   //const {userProfile, user} = useSelector((store) => store.auth);
   //const user = useSelector(store => store.auth.user);
-  const userProfile = useSelector(store => store.auth);
+  const userProfile = useSelector((store) => store.auth);
   //const user = useSelector((store) => store.auth);
   console.log(userProfile);
   //console.log(user)
   //console.log(userProfile?.user?.profilePicture);
 
-  const isLoggedInUserProfile =true // user?._id === userProfile?.user?._id;
+  const isLoggedInUserProfile = true; // user?._id === userProfile?.user?._id;
   // console.log(user?._id);
   // console.log(userProfile?.user?._id);
   const isfollowing = false;
@@ -84,13 +84,13 @@ const Profile = () => {
               </div>
               <div className="flex items-center gap-3">
                 <p>
-                  <span className="font-semibold mr-1">{userProfile.user.posts.length}</span>Posts
+                  <span className="font-semibold mr-1">{userProfile?.user?.posts?.length}</span>Posts
                 </p>
                 <p>
-                  <span className="font-semibold mr-1">{userProfile.user.followers.length}</span>Followers
+                  <span className="font-semibold mr-1">{userProfile?.user?.followers?.length}</span>Followers
                 </p>
                 <p>
-                  <span className="font-semibold mr-1">{userProfile.user.following.length}</span>Following
+                  <span className="font-semibold mr-1">{userProfile?.user?.following?.length}</span>Following
                 </p>
               </div>
 
@@ -98,7 +98,7 @@ const Profile = () => {
                 <span className="font-semibold">{userProfile?.bio || "Bio here....."}</span>
                 <Badge className="w-fit" variant="secondary ">
                   <AtSign />
-                  <span className="pl-1"> {userProfile.user.username}</span>
+                  <span className="pl-1"> {userProfile?.user?.username}</span>
                 </Badge>
                 <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime </span>
                 <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime </span>

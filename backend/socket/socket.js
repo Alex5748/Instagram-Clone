@@ -15,25 +15,24 @@ const io = new Server(server, {
 })
 
 
-const userSocketMap = {};   // this map stores the socket id corresponding the userId--->sockerid
+const userSocketMap = {} ; // this map stores socket id corresponding the user id; userId -> socketId
 
+export const getReceiverSocketId = (receiverId) => userSocketMap[receiverId];
 
-io.on('connection', (socket) => {
+io.on('connection', (socket)=>{
     const userId = socket.handshake.query.userId;
-    if (userId) {
+    if(userId){
         userSocketMap[userId] = socket.id;
-        console.log(`User connected userId : ${userId}, SocketId : ${socket.id}`)
     }
-    io.emit('getOnlineUsers', Object.key(userSocketMap));
-    socket.on('disconnect', () => {
-        if (userId) {
-            console.log(`User connected userId : ${userId}, SocketId : ${socket.id}`)
+
+    io.emit('getOnlineUsers', Object.keys(userSocketMap));
+
+    socket.on('disconnect',()=>{
+        if(userId){
             delete userSocketMap[userId];
-            
         }
-        io.emit('getOnlineUsers', Object.key(userSocketMap));
-    })
+        io.emit('getOnlineUsers', Object.keys(userSocketMap));
+    });
 })
 
-
-export {app, server, io}
+export {app, server, io};

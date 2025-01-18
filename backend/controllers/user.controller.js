@@ -276,6 +276,7 @@ export const followOrUnfollow =  async (req, res) => {
 
         
     } catch (error) {
+        console.log(error)
         
     }
     
