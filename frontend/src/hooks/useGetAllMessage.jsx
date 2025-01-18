@@ -11,7 +11,7 @@ const useGetAllMessage = () => {
     useEffect(() => {
         const fetchAllMessage = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/message/all/${selectedUser?._id}`, { withCredentials: true });
+                const res = await axios.get(`https://instagram-clone-whz3.onrender.com/api/v1/message/all/${selectedUser?._id}`, { withCredentials: true });
               if (res.data.success) {  
                   console.log("get all message response:", res)
                     dispatch(setMessages(res.data.messages));

@@ -30,7 +30,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:8000/api/v1/user/login", input, {
+      const res = await axios.post("https://instagram-clone-whz3.onrender.com/api/v1/user/login", input, {
         headers: {
           "Content-Type": "application/json",
         },

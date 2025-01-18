@@ -10,7 +10,7 @@ const useGetAllPosts = () => {
     const fetchAllPosts = async () => {
       try {
         // Making API call to fetch all posts
-        const res = await axios.get("http://localhost:8000/api/v1/post/all", {
+        const res = await axios.get("https://instagram-clone-whz3.onrender.com/api/v1/post/all", {
           withCredentials: true,
         });
 
