@@ -24,7 +24,7 @@ const __dirname = path.resolve();
 
 app.get('/', (req, res)=>{
     return res.status(200).json({
-        message:"I am comming from backend"
+        message:"I am comming from backend please visit https://instagram-clone-whz3.onrender.com/login"
     })
 })
 
